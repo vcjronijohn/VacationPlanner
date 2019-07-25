@@ -1,7 +1,7 @@
-var express = require('express');
-var app = express();
-var mysql = require('mysql');
+var server = require()
 
+
+var mysql = require('mysql');
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -9,10 +9,22 @@ var con = mysql.createConnection({
     database: "vacay",
 });
 
+con.connect(function(err) {
+    if (err) throw err;
+    con.query("SELECT * FROM vacay", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+    });
+  });
+  
 
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+// app.get('/', function (req, res) {
+//   res.send('Hello World')
+// })
  
-app.listen(3000)
+
+// var firstName = "Jabez";
+// var lastName = "Dailey";
+// var sql;
+// sql = "INSERT INTO people (firstName, lastName) VALUES ('" + firstName +"', '" + lastName + "')";
