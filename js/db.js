@@ -2,36 +2,44 @@ var http = require("http");
 var url = require('url');
 var fs = require("fs");
 
+// show all pois
 
-var mysql = require('mysql');
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    // password: "LM21pz0@",
-    database: "vacay",
-});
+function get_all_poi () {
 
-con.connect(function(err) {
-  if (err) throw err;
-      con.query("SELECT * FROM city", function (err, result, fields) {
+  return new Promise((resolve, reject) => {
+    con.query("SELECT * FROM POI", function (err, result) {
+        if (err) reject(err);
+        // console.log(result);
+        resolve(JSON.stringify(result))
+    }).catch(console.log)
+  
+  });
+  }
+  
+  // test listing pois
+  
+  get_all_poi().then(result => {console.log(result)});
+  
+  
+  // add new poi
+  
+  function add_new_poi(City, Poi) {
+  con.connect(function(err) {
       if (err) throw err;
-      // console.log(result);
-  console.log("Connected!");
-});
-
-// con.connect(function(err) {
-//   if (err) throw err;
-//       con.query("SELECT * FROM poi", function (err, result, fields) {
-//       if (err) throw err;
-//       // console.log(result);
-//   console.log("Connected!");
-// });
-
-// con.connect(function(err) {
-//     if (err) throw err;
-//     con.query("SELECT * FROM inventory", function (err, result, fields) {
-//       if (err) throw err;
-//       console.log(result);
-//     });
-//   });
+      console.log("Connected");
+      var sql;
+      sql = "INSERT INTO POI (City, Poi) VALUES ('" + City +"', '" + Poi + "')";
+      con.query(sql, function (err, result) {
+      if (err) throw err;
+        console.log("1 record inserted");
+      });
+        console.log(result);
+      });
+    ;
+  }
+  // test adding poi
+  
+  // add_new_poi();
+  
+  module.exports.getPoi = get_all_poi;
+  module.exports.addNew = add_new_poi;

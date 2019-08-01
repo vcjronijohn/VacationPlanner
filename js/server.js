@@ -1,3 +1,7 @@
+var http = require("http");
+var url = require('url');
+var fs = require("fs");
+var db = require('./db');
 
 // var http = require('http');
 
@@ -18,10 +22,12 @@
 
 var http = require('http');
 
-var server = http.createServer(function(req, res) {
+var server = http.createServer(function(request, response) {
     
 		var parUrl = url.parse(request.url, true);
 		var filePath = '.' + parUrl.pathname;
+
+		db.getPoi().then(result => {console.log(result)});
 
 		if (parUrl.pathname === "./index.html") {
 			var VacayLength = parUrl.query.Vacaylength;
@@ -45,26 +51,25 @@ var server = http.createServer(function(req, res) {
 			filePath += ".html";
 		}
 
-		console.log('request ', request.url);
+		// console.log('request ', request.url);
 
-		fs.readFile(filePath, function (err, content) {
+	// 	fs.readFile(filePath, function (err, content) {
 		
-			if(request.url === "/" || request.url === "/login") {
-				response.writeHead(200, { 'Content-Type': "text/html" });
-				response.end(content, 'utf-8');
+	// 		if(request.url === "/" || request.url === "/login") {
+	// 			response.writeHead(200, { 'Content-Type': "text/html" });
+	// 			response.end(content, 'utf-8');
 
-			} else {
-				fs.readFile('./404.html', function(error, content) {
-					response.writeHead(404, { 'Content-Type': "text/html" });
-					response.end(content, 'utf-8');
-				});
-			}
-		})
+	// 		} else {
+	// 			fs.readFile('./404.html', function(error, content) {
+	// 				response.writeHead(404, { 'Content-Type': "text/html" });
+	// 				response.end(content, 'utf-8');
+	// 			});
+	// 		}
+	// 	})
 	})
 
-server.listen(3000, function() {
-    console.log('Server is running at 3000')
-    console.log('request ', request.url);
+server.listen(8080, function() {
+    console.log('Server is running at 8080')
 });
 
 // con.connect(function(err) {

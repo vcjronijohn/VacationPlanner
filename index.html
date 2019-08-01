@@ -6,47 +6,51 @@
     <!-- <link rel="stylesheset" href="styles/reset.css"> -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="js/vacay.js"></script>
-  	<!-- <script src="js/main.js"></script> -->
+  	<script src="js/main.js"></script>
 	  <script src="js/server.js"></script>
   </head>
   <body>
       <H1>Vacation Planner</H1>
     <form name=vplan>
         <label for="VacaLength">Length of Stay:</label>
-        <input type="number" name="VacaLength"><br>
+        <input type="number" id="VacaLength"><br>
         <label for="PoiPerDay">Number of activities per day:</label>
-        <input type="number" name="PoiPerDay"><br>
+        <input type="number" id="PoiPerDay"><br>
         <label for="City">City:</label>
-        <input type="text" name="City"><br>
+        <input type="text" id="City"><br>
         <label for="POI">Point of Interest:</label>
-        <input type="text" name="POI"><br>
+        <input type="text" id="POI"><br>
         <button name="submit">
             <strong>Submit</strong>
         </button>
               
     </form>
     <script>
-      var form = document.forms["vplan"];
+      var vform = document.forms["vplan"];
       var submit = document.querySelector("button");
-      var vclength = form["VacaLength"];
-      var poi_day = form["POIPerDay"];
-      var city = form["City"];
-      var poi = form["POI"];
+      var vclength = vform["VacaLength"];
+      var poi_day = vform["POIPerDay"];
+      var city = vform["City"];
+      var poi = vform["POI"];
+      console.log(vform["VacaLength"], vform["PoiPerDay"], vform["City"], vform["POI"]);
+      console.log(vclength.value, poi_day.value, vcity.value, poi.value);
         
-      submit.addEventListener("click", function(event) {
-        event.preventDefault();
+      // submit.addEventListener("click", function(event) {
+      //   event.preventDefault();
         
-        var xhr = new XMLHttpRequest();
+      //   var xhr = new XMLHttpRequest();
   
-        xhr.onreadystatechange = function () {
-          if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-          }
-        }
-        var request = "/?VacaLength=" + vclength.value + "&PoiPerDay=" + poi_day.value + "&City=" + city.value + "&POI=" + poi.value;
-        xhr.open("GET", request, true);
-        xhr.send();
-      });
+      //   xhr.onreadystatechange = function () {
+      //     if(this.readyState == 4 && this.status == 200) {
+      //       console.log('ready');
+      //       // console.log(this.responseText);
+      //     }
+      //   }
+      //   var request = "/?VacaLength=" + vform["VacaLength"] + "&PoiPerDay=" + vform["POIPerDay"] + "&City=" + vform["City"] + "&POI=" + vform["POI"];
+      //   // var request = "/?VacaLength=" + vclength.value + "&PoiPerDay=" + poi_day.value + "&City=" + city.value + "&POI=" + poi.value;
+      //   xhr.open("GET", request, true);
+      //   xhr.send();
+      // });
   
     </script>
   </body>
